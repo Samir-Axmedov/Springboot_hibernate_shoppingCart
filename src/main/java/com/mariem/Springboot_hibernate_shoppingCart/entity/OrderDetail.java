@@ -12,31 +12,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Order_Details")
+@Table(name = "order_details")
 public class OrderDetail implements Serializable {
     private static final long serialVersionUID = 7550745928843183535L;
 
     @Id
-    @Column(name = "ID", length = 50, nullable = false)
+    @Column(name = "id", length = 50, nullable = false)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_ID", nullable = false, //
-            foreignKey = @ForeignKey(name = "ORDER_DETAIL_ORD_FK"))
+    @JoinColumn(name = "order_id", nullable = false, //
+            foreignKey = @ForeignKey(name = "order_detail_ord_fk"))
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID", nullable = false, //
-            foreignKey = @ForeignKey(name = "ORDER_DETAIL_PROD_FK"))
+    @JoinColumn(name = "product_id", nullable = false, //
+            foreignKey = @ForeignKey(name = "order_detail_prod_fk"))
     private Product product;
 
-    @Column(name = "Quantity", nullable = false)
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "Price", nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "Amount", nullable = false)
+    @Column(name = "amount", nullable = false)
     private double amount;
 
     public String getId() {

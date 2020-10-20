@@ -63,6 +63,7 @@ public String login(Model model)
         System.out.println(userDetails.getPassword());
         System.out.println(userDetails.getUsername());
         System.out.println(userDetails.isEnabled());
+
         model.addAttribute("UserDetails",userDetails);
         return "accountInfo";
     }

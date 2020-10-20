@@ -27,7 +27,7 @@ public class OrderDao {
 
 
     private int getMaxOrderNum() {
-        String sql = "SELECT MAX(o.orderNum) FROM" + Order.class.getName() + "o";
+        String sql = "Select max(o.orderNum) from " + Order.class.getName() + " o ";
         Session session = this.sessionFactory.getCurrentSession();
         Query<Integer> query = session.createQuery(sql, Integer.class);
         Integer value = (Integer) query.getSingleResult();
@@ -45,6 +45,7 @@ public class OrderDao {
         Order order = new Order();
 
         order.setId(UUID.randomUUID().toString());
+        order.setOrderNum(orderNum);
         order.setOrderDate(new Date());
         order.setAmount(cartInfo.getAmountTotal());
         CustomerInfo customerInfo = cartInfo.getCustomerInfo();
@@ -74,8 +75,8 @@ public class OrderDao {
     }
 
     public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
-        String sql = "SELECT new" + OrderInfo.class.getName() + "(ord.id, ord.orderDate, ord.orderNum, ord.amount, "
-                + " ord.customerName, ord.customerAddress, ord.customerEmail, ord.customerPhone) " + " FROM "
+        String sql = "Select new " + OrderInfo.class.getName() + " (ord.id, ord.orderDate, ord.orderNum, ord.amount, "
+                + " ord.customerName, ord.customerAddress, ord.customerEmail, ord.customerPhone) " + " from "
                 + Order.class.getName() + " ord order by ord.orderNum desc";
 
         Session session = this.sessionFactory.getCurrentSession();
@@ -101,9 +102,9 @@ public class OrderDao {
 
     public List<OrderDetailInfo> listOrderDetailInfos(String orderId) {
         String sql = "Select new " + OrderDetailInfo.class.getName() //
-                + "(d.id, d.product.code, d.product.name , d.quantity,d.price,d.amount) "//
+                + " (d.id, d.product.code, d.product.name , d.quantity,d.price,d.amount) "//
                 + " from " + OrderDetail.class.getName() + " d "//
-                + " where d.order.id = :orderId ";
+                + " Where d.order.id = :orderId ";
 
         Session session = this.sessionFactory.getCurrentSession();
         Query<OrderDetailInfo> query = session.createQuery(sql, OrderDetailInfo.class);

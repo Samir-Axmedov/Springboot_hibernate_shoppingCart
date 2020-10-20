@@ -144,6 +144,9 @@ public class MainController {
         CartInfo cartInfo = Utils.getCartINSession(request);
         if (cartInfo == null || cartInfo.isEmpty()) {
             return "redirect:/shoppingCartCustomer";
+        } else if (!cartInfo.isValidCustomer()) {
+
+            return "redirect:/shoppingCartCustomer";
         }
         model.addAttribute("myCart", cartInfo);
         return "shoppingCartConfirmation";
@@ -162,7 +165,7 @@ public class MainController {
         try{
             orderDao.saveOrder(cartInfo);
         }
-        catch (Exception exception){
+        catch (Exception e){
             return "shoppingCartConfirmation";
         }
         Utils.removeCartInSession(request);
@@ -170,6 +173,17 @@ public class MainController {
         return "redirect:/shoppingCartFinalize";
     }
 
+    @RequestMapping(value = { "/shoppingCartFinalize" }, method = RequestMethod.GET)
+    public String shoppingCartFinalize(HttpServletRequest request, Model model) {
+
+        CartInfo lastOrderedCart = Utils.getLastOrderedCartInSession(request);
+
+        if (lastOrderedCart == null) {
+            return "redirect:/shoppingCart";
+        }
+        model.addAttribute("lastOrderedCart", lastOrderedCart);
+        return "shoppingCartFinalize";
+    }
 
     @RequestMapping(value = {"/productImage"},method=RequestMethod.GET)
     public void productImage(HttpServletRequest request, HttpServletResponse response,Model model,@RequestParam("code")String code) throws IOException{

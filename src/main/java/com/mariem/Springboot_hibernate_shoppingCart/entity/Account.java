@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name="Accounts")
+@Table(name="accounts")
 public class Account implements Serializable {
     private static final long serialVersionUID = -2054386655979281969L;
 
@@ -16,16 +16,16 @@ public class Account implements Serializable {
     public static final String ROLE_MANAGER="MANAGER" ;
     public static final String ROLE_EMPLOYEE="EMPLOYEE" ;
     @Id
-    @Column(name = "User_Name",length=20,nullable = false)
+    @Column(name = "user_name",length=20,nullable = false)
     private String userName;
 
-    @Column(name = "Encrypted_Password",length=20,nullable = false)
+    @Column(name = "encrypted_password",length=20,nullable = false)
     private String encryptedPassword;
 
-    @Column(name = "Active",length=20,nullable = false)
+    @Column(name = "active",length=20,nullable = false)
     private Boolean active;
 
-    @Column(name = "User_Role",length=20,nullable = false)
+    @Column(name = "user_role",length=20,nullable = false)
     private String userRole;
 
 
